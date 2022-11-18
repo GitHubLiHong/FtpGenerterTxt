@@ -4,6 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -154,7 +155,7 @@ public class FileUtils {
         if (dirName == null) {
             try{
                 //在默认文件夹下创建临时文件
-                tempFile = File.createTempFile(prefix, suffix);
+                tempFile = Files.createTempFile(prefix,suffix).toFile();
                 //返回临时文件的路径
                 return tempFile.getCanonicalPath();
             } catch (IOException e) {
@@ -173,7 +174,7 @@ public class FileUtils {
             }
             try {
                 //在指定目录下创建临时文件
-                tempFile = File.createTempFile(prefix, suffix, dir);
+                tempFile = Files.createTempFile(dir.toPath(),prefix,suffix).toFile();
                 return tempFile.getCanonicalPath();
             } catch (IOException e) {
                 e.printStackTrace();
